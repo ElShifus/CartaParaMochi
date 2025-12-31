@@ -1,0 +1,143 @@
+body, html {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    overflow: hidden; font-family: 'Georgia', serif;
+    position: fixed;
+}
+
+#loader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #ffffff; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; z-index: 9999;
+    transition: opacity 1s ease;
+}
+
+.fondo-principal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('images/fondo2.png');
+    background-repeat: no-repeat; background-position: center center;
+    background-size: cover; z-index: -1;
+}
+
+.recuadro-contenedor {
+    position: absolute; top: 10%; right: 5%;
+    width: 40vw; min-width: 300px; max-width: 500px; z-index: 10;
+    cursor: pointer;
+}
+
+.recuadro-img { width: 100%; display: block; }
+
+.contenido-contador {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); width: 85%; text-align: center;
+}
+
+.titulo { font-style: italic; color: #333; margin: 0; font-size: clamp(1rem, 2vw, 1.8rem); }
+#tiempo { font-size: clamp(0.9rem, 1.8vw, 1.5rem); font-weight: bold; color: #d81b60; margin: 10px 0; }
+.mensaje-resaltado { font-size: 0.9rem; color: #c2185b; font-weight: bold; border-top: 1px solid #ffcdd2; padding-top: 10px; margin-top: 5px; }
+.mensaje-fecha { position: absolute; top: 20px; left: 20px; padding: 10px 20px; background: rgba(255,255,255,0.8); border-radius: 20px; border: 2px solid #ffb7c5; color: #d81b60; font-weight: bold; z-index: 20; }
+
+.sobre-esquina {
+    position: fixed; bottom: 40px; right: 40px;
+    width: 250px; cursor: pointer; z-index: 50;
+}
+.sobre-esquina img { width: 100%; }
+
+#modal-carta {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); display: flex; justify-content: center; 
+    align-items: center; z-index: 200;
+}
+
+/* AJUSTE DE CARTA PARA QUE NO CHOQUE */
+.carta-wrapper { 
+    position: relative; 
+    width: 60vw; /* Bajamos de 95vw a 60vw para dejar espacio a los lados */
+    height: 90vh; 
+    max-width: 850px; 
+    min-width: 320px;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 210; /* Siempre por encima de las fotos */
+}
+
+#carta-fondo { 
+    width: 100%; height: 100%; object-fit: fill;
+    position: absolute; top: 0; left: 0; z-index: 1;
+}
+
+#cerrar-carta {
+    position: absolute; top: 15px; right: 15px;
+    background: #d81b60; color: white; border: none; border-radius: 50%;
+    width: 45px; height: 45px; cursor: pointer; z-index: 215; font-size: 24px;
+}
+
+#texto-dedicatoria {
+    position: absolute; z-index: 10;
+    top: 12%; left: 20%; right: 18%; bottom: 18%;
+    overflow-y: auto; text-align: left; color: #222; 
+    font-size: clamp(0.9rem, 1.5vw, 1.3rem); line-height: 1.6; 
+    padding: 10px; white-space: pre-wrap; scrollbar-width: thin;
+}
+
+/* --- ESTILO DIAPOSITIVAS LATERALES CORREGIDO --- */
+.foto-lateral {
+    position: absolute;
+    width: 18vw; height: 35vh; max-width: 300px; /* Tamaño equilibrado */
+    background-color: white; 
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    border: 8px solid white; box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+    border-radius: 5px; z-index: 205; /* Por debajo de la carta */
+    transition: opacity 0.8s ease-in-out; opacity: 0;
+}
+
+/* Se mueven bien a las orillas para no tocar la carta */
+#foto-izq { left: 2%; top: 20%; transform: rotate(-8deg); }
+#foto-der { right: 2%; bottom: 20%; transform: rotate(8deg); }
+.mostrar-foto { opacity: 1 !important; }
+
+#overlay-hoja {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; z-index: 100;
+}
+
+.hidden { display: none !important; }
+
+.hoja-wrapper { position: relative; width: 85vw; max-width: 800px; }
+#hoja-img { width: 100%; }
+
+#mensaje-romantico {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 70%; color: #8a1c31; font-size: clamp(1.2rem, 3.5vw, 2.5rem);
+    font-style: italic; text-align: center;
+}
+
+.petalo {
+    position: absolute; background-color: #ffb7c5; border-radius: 100% 0 100% 0;
+    opacity: 0.7; pointer-events: none; z-index: 5; animation: caer linear infinite;
+}
+
+@keyframes caer {
+    0% { top: -10%; transform: translateX(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    100% { top: 110%; transform: translateX(100px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+.corazon-latido { font-size: 50px; animation: latido 1.2s infinite; }
+
+/* MEDIA QUERIES PARA CELULAR Y TABLET */
+@media (max-width: 1024px) {
+    .carta-wrapper { width: 85vw; }
+    .foto-lateral { width: 15vw; opacity: 0.5; } /* Se desvanecen un poco en tablets */
+}
+
+@media (max-width: 600px) {
+    .recuadro-contenedor { right: 50%; transform: translateX(50%); top: 5%; width: 95vw; }
+    .sobre-esquina { width: 180px; bottom: 20px; right: 20px; }
+    
+    /* EN CELULAR LA CARTA OCUPA CASI TODO PARA PODER LEER */
+    .carta-wrapper { width: 95vw; height: 85vh; }
+    #texto-dedicatoria { left: 15%; right: 10%; font-size: 1.1rem; top: 15%; }
+    
+    /* ELIMINAMOS LAS FOTOS EN CELULAR PARA QUE NO SUPERPONGAN NI ESTORBEN */
+    .foto-lateral { display: none !important; } 
+}
