@@ -1,0 +1,127 @@
+body, html {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    overflow: hidden; font-family: 'Georgia', serif;
+}
+
+#loader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #ffffff; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; z-index: 9999;
+    transition: opacity 1s ease;
+}
+
+.fondo-principal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('images/fondo2.png');
+    background-repeat: no-repeat; background-position: center center;
+    background-size: cover; z-index: -1;
+}
+
+.recuadro-contenedor {
+    position: absolute; top: 10%; right: 5%;
+    width: 40vw; min-width: 300px; max-width: 500px; z-index: 10;
+    cursor: pointer;
+}
+
+.recuadro-img { width: 100%; display: block; }
+
+.contenido-contador {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); width: 85%; text-align: center;
+}
+
+.titulo { font-style: italic; color: #333; margin: 0; font-size: clamp(1rem, 2vw, 1.8rem); }
+#tiempo { font-size: clamp(0.9rem, 1.8vw, 1.5rem); font-weight: bold; color: #d81b60; margin: 10px 0; }
+.mensaje-resaltado { font-size: 0.9rem; color: #c2185b; font-weight: bold; border-top: 1px solid #ffcdd2; padding-top: 10px; margin-top: 5px; }
+.mensaje-fecha { position: absolute; top: 20px; left: 20px; padding: 10px 20px; background: rgba(255,255,255,0.8); border-radius: 20px; border: 2px solid #ffb7c5; color: #d81b60; font-weight: bold; z-index: 20; }
+
+/* SOBRES MÁS GRANDES */
+.sobre-esquina {
+    position: fixed; bottom: 40px; right: 40px;
+    width: 260px; /* Un poco más grande como pediste */
+    cursor: pointer; z-index: 50;
+    transition: transform 0.3s ease;
+}
+.sobre-esquina img { width: 100%; }
+
+/* CARTA MAXIMIZADA Y ESTIRADA */
+#modal-carta {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); display: flex; justify-content: center; 
+    align-items: center; z-index: 200;
+}
+
+.carta-wrapper { 
+    position: relative; 
+    width: 98vw; /* Casi todo el ancho de la pantalla */
+    height: 95vh; 
+    max-width: 1200px; /* Aumentamos el máximo para que la imagen se estire más */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#carta-fondo { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: stretch; /* Esto estira la imagen hacia los lados si es necesario */
+}
+
+#cerrar-carta {
+    position: absolute; top: 20px; right: 20px;
+    background: #d81b60; color: white; border: none; border-radius: 50%;
+    width: 45px; height: 45px; cursor: pointer; z-index: 210; font-size: 24px;
+}
+
+/* MARGEN IZQUIERDO AJUSTADO PARA QUE EL TEXTO NO SE SALGA */
+#texto-dedicatoria {
+    position: absolute; 
+    top: 12%; 
+    left: 22%; /* Aumentamos el margen izquierdo para "empujar" el texto dentro de la imagen */
+    right: 20%; 
+    bottom: 18%;
+    overflow-y: auto; 
+    text-align: left; 
+    color: #222; 
+    font-size: clamp(1rem, 2.2vw, 1.6rem); 
+    line-height: 1.8; 
+    padding: 10px;
+    white-space: pre-wrap;
+    scrollbar-width: thin;
+}
+
+#overlay-hoja {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; z-index: 100;
+}
+
+.hidden { display: none !important; }
+
+.hoja-wrapper { position: relative; width: 85vw; max-width: 800px; animation: zoomIn 0.5s ease-out; }
+#hoja-img { width: 100%; }
+
+#mensaje-romantico {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 70%; color: #8a1c31; font-size: clamp(1.2rem, 3.5vw, 2.5rem);
+    font-style: italic; text-align: center;
+}
+
+.petalo {
+    position: absolute; background-color: #ffb7c5; border-radius: 100% 0 100% 0;
+    opacity: 0.7; pointer-events: none; z-index: 5; animation: caer linear infinite;
+}
+
+@keyframes caer {
+    0% { top: -10%; transform: translateX(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    100% { top: 110%; transform: translateX(100px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes zoomIn { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+.corazon-latido { font-size: 50px; animation: latido 1.2s infinite; }
+
+@media (max-width: 600px) {
+    .sobre-esquina { width: 180px; } /* Sobre grande en móvil también */
+    #texto-dedicatoria { left: 15%; right: 10%; font-size: 1rem; }
+}
